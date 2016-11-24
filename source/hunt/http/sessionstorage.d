@@ -165,8 +165,9 @@ class FileSessionStorage : SessionStorageInterface
         import core.cpuid;
         import std.string;
 
-        return toHexString(sha1Of(format("%s--%s--%s",
-            Clock.currTime().toISOExtString, uniform(long.min, long.max), processor()))).toLower;
+        auto td = toHexString(sha1Of(format("%s--%s--%s",
+					Clock.currTime().toISOExtString, uniform(long.min, long.max), processor())));
+		return toLower(cast(string)td[]);
     }
 
     ///Sets a typed field to the session.
@@ -361,7 +362,8 @@ class MemcacheSessionStorage :SessionStorageInterface{
 		import core.cpuid;
 		import std.string;
 		
-		return toHexString(sha1Of(format("%s--%s--%s", Clock.currTime().toISOExtString, uniform(long.min, long.max), processor()))).toLower;
+		auto td = toHexString(sha1Of(format("%s--%s--%s", Clock.currTime().toISOExtString, uniform(long.min, long.max), processor())));
+		return toLower(cast(string)td[]);
 	}
 	
 	///Sets a typed field to the session.
